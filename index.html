@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eMoments – Increasing Learner Engagement</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #E8622A;
+    --orange-light: #F5845A;
+    --orange-pale: #FDE8DC;
+    --green: #4A9455;
+    --green-light: #6EBC7B;
+    --green-pale: #DFF2E2;
+    --yellow: #F0B429;
+    --yellow-pale: #FEF3D0;
+    --teal: #2E8B8B;
+    --teal-pale: #D4EFEF;
+    --purple: #7C5CBF;
+    --purple-pale: #EBE4F7;
+    --red: #D94F4F;
+    --red-pale: #FADDDD;
+    --cream: #FFFAF4;
+    --dark: #2A2118;
+    --mid: #6B5F54;
+    --light: #F5EDE2;
+    --border: #E8DDD0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--dark); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,250,244,0.9); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 24px; display: flex; align-items: center;
+    justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  }
+  .nav-brand { font-weight: 900; font-size: 1.1rem; color: var(--dark); display: flex; align-items: center; gap: 8px; text-decoration: none; }
+  .nav-brand span { color: var(--orange); }
+  .nav-links { display: flex; gap: 4px; }
+  .nav-link { font-size: 0.82rem; font-weight: 700; color: var(--mid); text-decoration: none; padding: 6px 14px; border-radius: 8px; transition: background 0.15s, color 0.15s; }
+  .nav-link:hover { background: var(--light); color: var(--dark); }
+
+  /* HERO */
+  .hero { background: linear-gradient(135deg, #E8622A 0%, #F0B429 50%, #4A9455 100%); position: relative; overflow: hidden; padding: 80px 24px 100px; text-align: center; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+  .hero-badge { display: inline-block; background: rgba(255,255,255,0.25); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.4); color: #fff; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 6px 18px; border-radius: 100px; margin-bottom: 24px; }
+  .hero h1 { font-family: 'Nunito', sans-serif; font-size: clamp(2.4rem, 7vw, 5rem); font-weight: 900; color: #fff; line-height: 1.1; text-shadow: 0 2px 20px rgba(0,0,0,0.2); margin-bottom: 16px; }
+  .hero h1 span { display: block; font-style: italic; font-weight: 400; font-family: 'Lora', serif; font-size: 0.55em; letter-spacing: 1px; opacity: 0.92; }
+  .hero-sub { font-size: 1.1rem; color: rgba(255,255,255,0.92); max-width: 640px; margin: 0 auto 36px; line-height: 1.7; }
+  .hero-meta { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+  .hero-chip { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.35); color: #fff; padding: 8px 20px; border-radius: 100px; font-size: 0.88rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+  .hero-wave { position: absolute; bottom: -2px; left: 0; width: 100%; }
+
+  /* STATS */
+  .stats-bar { background: var(--orange); padding: 24px; display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; }
+  .stat { text-align: center; color: #fff; }
+  .stat-number { font-size: 2rem; font-weight: 900; line-height: 1; }
+  .stat-label { font-size: 0.78rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: 0.85; margin-top: 4px; }
+
+  /* INTRO */
+  .intro { padding: 80px 24px; max-width: 900px; margin: 0 auto; text-align: center; }
+  .section-eyebrow { font-size: 0.8rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--orange); margin-bottom: 12px; }
+  .section-title { font-family: 'Lora', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 600; color: var(--dark); margin-bottom: 20px; line-height: 1.2; }
+  .section-body { font-size: 1.05rem; line-height: 1.8; color: var(--mid); max-width: 720px; margin: 0 auto; }
+  .quote-block { background: var(--orange-pale); border-left: 5px solid var(--orange); border-radius: 0 16px 16px 0; padding: 24px 32px; margin: 40px auto; max-width: 680px; text-align: left; font-family: 'Lora', serif; font-size: 1.1rem; font-style: italic; color: var(--dark); line-height: 1.7; }
+
+  /* THREE AREAS */
+  .areas { background: var(--light); padding: 80px 24px; }
+  .areas-inner { max-width: 1100px; margin: 0 auto; }
+  .areas-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 48px; }
+  .area-card { background: #fff; border-radius: 20px; padding: 32px 28px; border: 2px solid transparent; transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; }
+  .area-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; border-radius: 20px 20px 0 0; }
+  .area-card.orange::before { background: var(--orange); }
+  .area-card.green::before  { background: var(--green); }
+  .area-card.teal::before   { background: var(--teal); }
+  .area-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.1); }
+  .area-icon { font-size: 2.5rem; margin-bottom: 16px; }
+  .area-card h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 16px; color: var(--dark); }
+  .area-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag-pill { font-size: 0.78rem; font-weight: 700; padding: 4px 12px; border-radius: 100px; background: var(--light); color: var(--mid); }
+  .tag-pill.orange { background: var(--orange-pale); color: var(--orange); }
+  .tag-pill.green  { background: var(--green-pale);  color: var(--green); }
+  .tag-pill.teal   { background: var(--teal-pale);   color: var(--teal); }
+
+  /* FILTER */
+  .filter-section { padding: 60px 24px 20px; max-width: 1200px; margin: 0 auto; text-align: center; }
+  .filter-bar { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 24px; }
+  .filter-btn { padding: 8px 20px; border-radius: 100px; border: 2px solid var(--border); background: #fff; font-family: 'Nunito', sans-serif; font-size: 0.85rem; font-weight: 700; color: var(--mid); cursor: pointer; transition: all 0.18s; }
+  .filter-btn:hover, .filter-btn.active { border-color: var(--orange); background: var(--orange); color: #fff; }
+  .search-wrap { max-width: 500px; margin: 24px auto 0; position: relative; }
+  .search-input { width: 100%; padding: 12px 20px 12px 46px; border-radius: 100px; border: 2px solid var(--border); font-family: 'Nunito', sans-serif; font-size: 0.92rem; background: #fff; color: var(--dark); outline: none; transition: border-color 0.2s; }
+  .search-input:focus { border-color: var(--orange); }
+  .search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); font-size: 1.1rem; pointer-events: none; }
+
+  /* CARDS */
+  .strategies-section { padding: 20px 24px 80px; max-width: 1200px; margin: 0 auto; }
+  .strategies-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; }
+  .strategy-card { background: #fff; border-radius: 20px; overflow: hidden; border: 1.5px solid var(--border); transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; }
+  .strategy-card:hover { transform: translateY(-5px); box-shadow: 0 20px 48px rgba(0,0,0,0.1); border-color: transparent; }
+  .strategy-card.hidden { display: none; }
+  .card-header { padding: 24px 24px 16px; display: flex; align-items: flex-start; gap: 16px; }
+  .card-emoji { font-size: 2.2rem; flex-shrink: 0; width: 54px; height: 54px; border-radius: 14px; display: flex; align-items: center; justify-content: center; background: var(--light); }
+  .card-header-text h3 { font-size: 1.05rem; font-weight: 800; color: var(--dark); line-height: 1.2; margin-bottom: 6px; }
+  .card-modality-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .mod-tag { font-size: 0.7rem; font-weight: 700; padding: 2px 9px; border-radius: 100px; letter-spacing: 0.5px; }
+  .mod-visual      { background: #DFF2E2; color: #2E7A3A; }
+  .mod-auditory    { background: #FEF3D0; color: #9B6B00; }
+  .mod-kinesthetic { background: #EBE4F7; color: #5B3E9E; }
+  .mod-hots        { background: #FADDDD; color: #9B2020; }
+  .mod-social      { background: #D4EFEF; color: #1A6B6B; }
+  .card-body { padding: 0 24px 20px; flex: 1; }
+  .card-desc { font-size: 0.9rem; color: var(--mid); line-height: 1.65; margin-bottom: 14px; }
+  .card-accordion { border-top: 1.5px solid var(--border); }
+  .accordion-item { border-bottom: 1px solid var(--border); }
+  .accordion-item:last-child { border-bottom: none; }
+  .accordion-trigger { width: 100%; background: none; border: none; padding: 11px 0; display: flex; align-items: center; justify-content: space-between; cursor: pointer; font-family: 'Nunito', sans-serif; font-size: 0.83rem; font-weight: 800; color: var(--dark); text-align: left; gap: 8px; }
+  .accordion-icon { font-size: 1rem; flex-shrink: 0; transition: transform 0.2s; color: var(--orange); }
+  .accordion-trigger.open .accordion-icon { transform: rotate(45deg); }
+  .accordion-content { display: none; padding: 0 0 14px; font-size: 0.85rem; line-height: 1.7; color: var(--mid); }
+  .accordion-content.open { display: block; }
+  .example-box { background: var(--yellow-pale); border-left: 3px solid var(--yellow); padding: 10px 14px; border-radius: 0 10px 10px 0; margin-bottom: 8px; font-style: italic; }
+  .tip-box { background: var(--green-pale); border-left: 3px solid var(--green); padding: 10px 14px; border-radius: 0 10px 10px 0; font-size: 0.82rem; }
+  .tip-box strong { color: var(--green); }
+  .card-footer-color { height: 5px; background: linear-gradient(90deg, var(--orange), var(--yellow)); }
+  .card-footer-color.green-grad  { background: linear-gradient(90deg, var(--green), var(--teal)); }
+  .card-footer-color.purple-grad { background: linear-gradient(90deg, var(--purple), var(--teal)); }
+  .card-footer-color.red-grad    { background: linear-gradient(90deg, var(--red), var(--orange)); }
+  .card-footer-color.yellow-grad { background: linear-gradient(90deg, var(--yellow), var(--green)); }
+
+  /* FEATURED */
+  .featured-section { background: var(--dark); padding: 80px 24px; position: relative; overflow: hidden; }
+  .featured-section::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Ccircle cx='40' cy='40' r='1.5' fill='%23ffffff' fill-opacity='0.04'/%3E%3C/g%3E%3C/svg%3E"); }
+  .featured-inner { max-width: 1100px; margin: 0 auto; position: relative; }
+  .featured-section .section-eyebrow { color: var(--yellow); }
+  .featured-section .section-title   { color: #fff; }
+  .featured-section .section-body    { color: rgba(255,255,255,0.65); }
+  .featured-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 48px; }
+  .featured-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; padding: 32px; transition: background 0.2s, transform 0.2s; }
+  .featured-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-4px); }
+  .featured-card-badge { font-size: 0.75rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; margin-bottom: 20px; display: inline-block; }
+  .badge-orange { background: var(--orange-pale); color: var(--orange); }
+  .badge-green  { background: var(--green-pale);  color: var(--green); }
+  .badge-yellow { background: var(--yellow-pale); color: #9B6B00; }
+  .featured-card h3 { font-size: 1.4rem; font-weight: 800; color: #fff; margin-bottom: 12px; }
+  .featured-card p  { font-size: 0.9rem; line-height: 1.7; color: rgba(255,255,255,0.65); margin-bottom: 20px; }
+  .featured-example { background: rgba(255,255,255,0.07); border-radius: 12px; padding: 16px; font-size: 0.85rem; color: rgba(255,255,255,0.8); line-height: 1.7; font-style: italic; }
+  .featured-example strong { color: var(--yellow); font-style: normal; display: block; font-size: 0.78rem; letter-spacing: 1px; margin-bottom: 8px; text-transform: uppercase; }
+
+  /* RESOURCES */
+  .resources-section { background: var(--light); padding: 80px 24px; }
+  .resources-inner { max-width: 1100px; margin: 0 auto; }
+  .resources-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px; margin-top: 48px; }
+  .res-card { background: #fff; border-radius: 20px; overflow: hidden; border: 1.5px solid var(--border); display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; }
+  .res-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.1); border-color: transparent; }
+  .res-card-top { padding: 28px 28px 20px; flex: 1; }
+  .res-type-badge { font-size: 0.72rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; display: inline-block; margin-bottom: 16px; }
+  .res-badge-slides  { background: var(--teal-pale);   color: var(--teal); }
+  .res-badge-guide   { background: var(--green-pale);  color: var(--green); }
+  .res-badge-flyer   { background: var(--orange-pale); color: var(--orange); }
+  .res-card h3 { font-size: 1.1rem; font-weight: 800; color: var(--dark); margin-bottom: 8px; line-height: 1.3; }
+  .res-card .res-authors { font-size: 0.8rem; color: var(--mid); font-weight: 600; margin-bottom: 14px; }
+  .res-summary { font-size: 0.88rem; color: var(--mid); line-height: 1.7; margin-bottom: 16px; }
+  .res-highlights { list-style: none; margin-bottom: 0; }
+  .res-highlights li { font-size: 0.83rem; color: var(--dark); line-height: 1.55; padding: 6px 0 6px 22px; border-bottom: 1px solid var(--border); position: relative; }
+  .res-highlights li:last-child { border-bottom: none; }
+  .res-highlights li::before { content: '→'; position: absolute; left: 0; color: var(--orange); font-weight: 800; }
+  .res-card-bottom { padding: 20px 28px; border-top: 1.5px solid var(--border); display: flex; gap: 10px; flex-wrap: wrap; }
+  .res-download-btn { display: inline-flex; align-items: center; gap: 7px; padding: 10px 20px; border-radius: 100px; font-family: 'Nunito', sans-serif; font-size: 0.83rem; font-weight: 800; text-decoration: none; cursor: pointer; border: none; transition: all 0.18s; }
+  .btn-primary { background: var(--orange); color: #fff; }
+  .btn-primary:hover { background: var(--orange-light); }
+  .btn-secondary { background: var(--light); color: var(--dark); border: 1.5px solid var(--border); }
+  .btn-secondary:hover { background: var(--border); }
+  .upload-label { display: inline-flex; align-items: center; gap: 7px; padding: 10px 20px; border-radius: 100px; font-family: 'Nunito', sans-serif; font-size: 0.83rem; font-weight: 800; background: var(--light); color: var(--dark); border: 1.5px solid var(--border); cursor: pointer; transition: all 0.18s; }
+  .upload-label:hover { background: var(--border); }
+  .upload-label input { display: none; }
+  .upload-status { font-size: 0.78rem; color: var(--green); font-weight: 700; margin-top: 6px; display: none; }
+  .upload-status.visible { display: block; }
+
+  /* FOOTER */
+  footer { background: #1A120B; padding: 60px 24px 40px; text-align: center; color: rgba(255,255,255,0.5); }
+  .footer-logos { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 32px; margin-bottom: 40px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .footer-org { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .footer-org-icon { font-size: 2rem; }
+  .footer-org-name { font-size: 0.78rem; font-weight: 700; color: rgba(255,255,255,0.75); text-align: center; max-width: 150px; line-height: 1.4; }
+  .footer-org-sub { font-size: 0.7rem; color: rgba(255,255,255,0.4); text-align: center; }
+  .footer-divider { width: 1px; height: 50px; background: rgba(255,255,255,0.12); }
+  .footer-copy { font-size: 0.8rem; line-height: 1.7; }
+
+  @media (max-width: 600px) {
+    .strategies-grid, .featured-grid, .areas-grid { grid-template-columns: 1fr; }
+    .footer-divider { display: none; }
+    .stats-bar { gap: 24px; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#top">💡 <span>e</span>Moments</a>
+  <div class="nav-links">
+    <a class="nav-link" href="#intro">Intro</a>
+    <a class="nav-link" href="#areas">Areas</a>
+    <a class="nav-link" href="#strategies">Strategies</a>
+    <a class="nav-link" href="#spotlight">Spotlight</a>
+    <a class="nav-link" href="#resources">Resources</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-badge">Workshop · Bergamo · March 23, 2026</div>
+  <h1>eMoments<span>Increasing Learner Engagement</span></h1>
+  <p class="hero-sub">Practical strategies to help students <strong>become engaged</strong>, <strong>get connected</strong>, and <strong>make personal meaning</strong> of the content they are learning.</p>
+  <div class="hero-meta">
+    <div class="hero-chip">🧠 30 strategies</div>
+    <div class="hero-chip">🎯 3 modalities</div>
+    <div class="hero-chip">📍 Orto Botanico, Bergamo Alta</div>
+    <div class="hero-chip">🇺🇸 Utah State University</div>
+  </div>
+  <svg class="hero-wave" viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,40 C360,80 1080,0 1440,40 L1440,60 L0,60 Z" fill="#FFFAF4"/>
+  </svg>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat"><div class="stat-number">30</div><div class="stat-label">e-Moments</div></div>
+  <div class="stat"><div class="stat-number">3</div><div class="stat-label">Modalities</div></div>
+  <div class="stat"><div class="stat-number">8</div><div class="stat-label">Multiple Intelligences</div></div>
+  <div class="stat"><div class="stat-number">6</div><div class="stat-label">HOTS Levels</div></div>
+</div>
+
+<!-- INTRO -->
+<section class="intro" id="intro">
+  <p class="section-eyebrow">What is an eMoment?</p>
+  <h2 class="section-title">When learning truly lights up</h2>
+  <p class="section-body"><strong>eMoments</strong> are moments when students become the protagonists: they engage, connect with content, and make it their own. It's not about filling time with activities — it's about tapping into how the brain actually learns, through vision, sound, movement, stories, and collaboration.</p>
+  <div class="quote-block">
+    "By connecting to how students' brains learn, we can maximize their capabilities to learn concepts, processes, and information efficiently. These are moments when students become engaged, get connected, and make personal meaning of the content they are learning."
+    <br><br>
+    <small style="font-style:normal; font-weight:700; font-family:'Nunito',sans-serif; color:var(--orange);">— eMoments Teaching Strategies, National FFA Organization</small>
+  </div>
+  <p class="section-body">Each strategy is designed around one or more of the brain's three learning channels: <strong>visual</strong>, <strong>auditory</strong>, and <strong>kinesthetic</strong>. All draw on students' natural intelligences — spatial, linguistic, musical, logical-mathematical, interpersonal, and more.</p>
+</section>
+
+<!-- THREE AREAS -->
+<section class="areas" id="areas">
+  <div class="areas-inner">
+    <div style="text-align:center">
+      <p class="section-eyebrow">Three dimensions</p>
+      <h2 class="section-title">Areas of learning addressed</h2>
+    </div>
+    <div class="areas-grid">
+      <div class="area-card orange">
+        <div class="area-icon">👁️</div>
+        <h3>Learning Modalities</h3>
+        <p style="font-size:0.9rem;color:var(--mid);line-height:1.65;margin-bottom:16px;">Every eMoment is calibrated to at least one of the three sensory channels through which the brain processes information.</p>
+        <div class="area-tags">
+          <span class="tag-pill orange">Visual</span>
+          <span class="tag-pill orange">Auditory</span>
+          <span class="tag-pill orange">Kinesthetic</span>
+        </div>
+      </div>
+      <div class="area-card green">
+        <div class="area-icon">🧠</div>
+        <h3>Multiple Intelligences (Gardner)</h3>
+        <p style="font-size:0.9rem;color:var(--mid);line-height:1.65;margin-bottom:16px;">The strategies activate students' natural intelligences, allowing each learner to connect with content in their own way.</p>
+        <div class="area-tags">
+          <span class="tag-pill green">Spatial</span>
+          <span class="tag-pill green">Linguistic</span>
+          <span class="tag-pill green">Musical</span>
+          <span class="tag-pill green">Logical-Math</span>
+          <span class="tag-pill green">Naturalistic</span>
+          <span class="tag-pill green">Interpersonal</span>
+          <span class="tag-pill green">Bodily-Kinesthetic</span>
+          <span class="tag-pill green">Intrapersonal</span>
+        </div>
+      </div>
+      <div class="area-card teal">
+        <div class="area-icon">🎯</div>
+        <h3>Higher Order Thinking (Bloom)</h3>
+        <p style="font-size:0.9rem;color:var(--mid);line-height:1.65;margin-bottom:16px;">Beyond memorization: many strategies push students to analyze, synthesize, and evaluate rather than simply recall facts.</p>
+        <div class="area-tags">
+          <span class="tag-pill teal">Knowledge</span>
+          <span class="tag-pill teal">Comprehension</span>
+          <span class="tag-pill teal">Application</span>
+          <span class="tag-pill teal">Analysis</span>
+          <span class="tag-pill teal">Synthesis</span>
+          <span class="tag-pill teal">Evaluation</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRATEGIES -->
+<section class="filter-section" id="strategies">
+  <p class="section-eyebrow">The complete toolkit</p>
+  <h2 class="section-title">30 strategies for your classroom</h2>
+  <p class="section-body">Click any strategy to expand its description, a practical example, and teaching tips. Filter by type below.</p>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input class="search-input" type="text" id="searchInput" placeholder="Search a strategy…" oninput="filterCards()">
+  </div>
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
+    <button class="filter-btn" onclick="setFilter('visual',this)">👁️ Visual</button>
+    <button class="filter-btn" onclick="setFilter('auditory',this)">👂 Auditory</button>
+    <button class="filter-btn" onclick="setFilter('kinesthetic',this)">🤸 Kinesthetic</button>
+    <button class="filter-btn" onclick="setFilter('hots',this)">🎯 HOTS</button>
+    <button class="filter-btn" onclick="setFilter('social',this)">🤝 Collaborative</button>
+    <button class="filter-btn" onclick="setFilter('quick',this)">⚡ Quick (&lt;5 min)</button>
+  </div>
+</section>
+
+<section class="strategies-section">
+  <div class="strategies-grid" id="strategiesGrid">
+
+    <!-- 1 -->
+    <div class="strategy-card" data-tags="auditory hots social">
+      <div class="card-header"><div class="card-emoji">🔺</div><div class="card-header-text"><h3>$10,000 Pyramid Moment</h3><div class="card-modality-tags"><span class="mod-tag mod-auditory">Auditory</span><span class="mod-tag mod-social">Collaborative</span><span class="mod-tag mod-hots">HOTS</span></div></div></div>
+      <div class="card-body">
+        <p class="card-desc">In pairs: one student gives descriptive clues about a term or concept, the other must guess. The clue-giver cannot say the word itself! Timed event (1–2 minutes), then switch roles.</p>
+        <div class="card-accordion">
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">💡 Practical example <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="example-box">Student A has the card: <strong>AGROFORESTRY</strong><br>"It's a farming method that includes trees… it improves soil and protects the environment… it provides shade and prevents erosion…"<br>Student B: "Agroforestry!" ✓</div></div></div>
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">📌 Teaching tips <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="tip-box"><strong>When to use it:</strong> At the end of a lesson as a fast vocabulary review. Great for agricultural sciences, biology, chemistry.<br><strong>Tip:</strong> Prepare cards with the key terms of the unit. Play 3 rounds of 60 seconds each and rotate roles after every round.</div></div></div>
+        </div>
+      </div>
+      <div class="card-footer-color"></div>
+    </div>
+
+    <!-- 2 -->
+    <div class="strategy-card" data-tags="visual hots">
+      <div class="card-header"><div class="card-emoji">📚</div><div class="card-header-text"><h3>Almanac / Encyclopedia Moment</h3><div class="card-modality-tags"><span class="mod-tag mod-visual">Visual</span><span class="mod-tag mod-hots">HOTS – Analysis</span></div></div></div>
+      <div class="card-body">
+        <p class="card-desc">Students use almanacs or encyclopedias to find connections between what they just learned and entirely unrelated topics. The goal is to build creative cross-disciplinary links.</p>
+        <div class="card-accordion">
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">💡 Practical example <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="example-box">Lesson on cell division → student opens encyclopedia to "automobiles" and connects: "Cells divide in a specific order, just like cars are assembled in a precise sequence on a production line."</div></div></div>
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">📌 Teaching tips <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="tip-box"><strong>When to use it:</strong> After a lecture, as a creative consolidation moment. Give students 60–90 seconds to find their connection.<br><strong>Tip:</strong> Works great digitally — each student goes to a random Wikipedia article and finds the link!</div></div></div>
+        </div>
+      </div>
+      <div class="card-footer-color green-grad"></div>
+    </div>
+
+    <!-- 3 -->
+    <div class="strategy-card" data-tags="auditory kinesthetic hots quick">
+      <div class="card-header"><div class="card-emoji">🌦️</div><div class="card-header-text"><h3>Bob the Weather Guy Moment</h3><div class="card-modality-tags"><span class="mod-tag mod-auditory">Auditory</span><span class="mod-tag mod-kinesthetic">Kinesthetic</span><span class="mod-tag mod-hots">HOTS – Synthesis</span></div></div></div>
+      <div class="card-body">
+        <p class="card-desc">Students present an idea or process as if it were a weather report: they forecast what will happen, show how things interact, and describe what their latest "Doppler Radar" reveals about the concept.</p>
+        <div class="card-accordion">
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">💡 Practical example <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="example-box">Nitrogen cycle lesson: "Good evening. We have a nitrification front moving in from the north. Forecasts show intense bacterial activity over the next few hours, with a high chance of ammonium conversion by mid-morning…"</div></div></div>
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">📌 Teaching tips <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="tip-box"><strong>When to use it:</strong> Perfect for agronomy, soil chemistry, ecology. Give small groups 10 minutes to prepare.<br><strong>Tip:</strong> A pretend microphone (a pen or ruler) immediately raises energy and commitment!</div></div></div>
+        </div>
+      </div>
+      <div class="card-footer-color purple-grad"></div>
+    </div>
+
+    <!-- 4 -->
+    <div class="strategy-card" data-tags="visual hots">
+      <div class="card-header"><div class="card-emoji">🗺️</div><div class="card-header-text"><h3>Cartographer Moment</h3><div class="card-modality-tags"><span class="mod-tag mod-visual">Visual</span><span class="mod-tag mod-hots">HOTS – Synthesis</span></div></div></div>
+      <div class="card-body">
+        <p class="card-desc">Students create visual maps (cluster, mindmap, concept map, webbing) that represent the relationships among parts of the content they just learned.</p>
+        <div class="card-accordion">
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">💡 Practical example <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="example-box">After a lesson on grain crops, students create a mindmap with "cereal crops" at the center, branching to wheat, corn, barley — with notes on soil type, climate, and uses.</div></div></div>
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">📌 Teaching tips <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="tip-box"><strong>Variation:</strong> Use BEFORE the lesson as a visual roadmap for note-taking — the brain actively seeks patterns while listening.<br><strong>Tip:</strong> Show examples of cluster, mindmap, and webbing, then let students choose the format that best fits what they see.</div></div></div>
+        </div>
+      </div>
+      <div class="card-footer-color yellow-grad"></div>
+    </div>
+
+    <!-- 5 -->
+    <div class="strategy-card" data-tags="auditory quick">
+      <div class="card-header"><div class="card-emoji">🎤</div><div class="card-header-text"><h3>Choral Response Moment</h3><div class="card-modality-tags"><span class="mod-tag mod-auditory">Auditory</span><span class="mod-tag mod-kinesthetic">Kinesthetic</span></div></div></div>
+      <div class="card-body">
+        <p class="card-desc">Quick and highly effective: students repeat a key word or phrase aloud in unison. Builds vocabulary, correct pronunciation, attentiveness, and retention through repetition.</p>
+        <div class="card-accordion">
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">💡 Practical example <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="example-box">Teacher: "These branches of government ensure…" (palm extended toward students)<br>Students in unison: "…checks and balances!"</div></div></div>
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">📌 Teaching tips <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="tip-box"><strong>When to use it:</strong> For technical terms (Latin plant names, chemical formulas, process stages). Great for new vocabulary in CLIL lessons.<br><strong>Tip:</strong> Don't overuse — select only the most critical words, otherwise participation drops off.</div></div></div>
+        </div>
+      </div>
+      <div class="card-footer-color"></div>
+    </div>
+
+    <!-- 6 -->
+    <div class="strategy-card" data-tags="visual kinesthetic">
+      <div class="card-header"><div class="card-emoji">🖍️</div><div class="card-header-text"><h3>Crayon Moment</h3><div class="card-modality-tags"><span class="mod-tag mod-visual">Visual</span><span class="mod-tag mod-kinesthetic">Kinesthetic</span></div></div></div>
+      <div class="card-body">
+        <p class="card-desc">Students use color to visually organize written information — notes, texts, diagrams, equations, formulas. Each key element receives a color the student chooses personally.</p>
+        <div class="card-accordion">
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">💡 Practical example <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="example-box">In a chemical formula: carbon = orange, oxygen = blue, hydrogen = green. Each student explains to a partner why they chose that color for each element.</div></div></div>
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">📌 Teaching tips <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="tip-box"><strong>When to use it:</strong> Grammar analysis, food chain stages, biogeochemical cycle phases, process steps.<br><strong>Tip:</strong> Let students choose their own colors freely — the personal connection significantly increases retention.</div></div></div>
+        </div>
+      </div>
+      <div class="card-footer-color green-grad"></div>
+    </div>
+
+    <!-- 7 -->
+    <div class="strategy-card" data-tags="visual hots quick">
+      <div class="card-header"><div class="card-emoji">✍️</div><div class="card-header-text"><h3>Descartes Moment</h3><div class="card-modality-tags"><span class="mod-tag mod-visual">Visual</span><span class="mod-tag mod-hots">HOTS – Analysis</span></div></div></div>
+      <div class="card-body">
+        <p class="card-desc">Before introducing a new concept, pose three questions: <em>What do you know?</em> <em>What do you think you understand?</em> <em>What don't you understand?</em> Students write letters to themselves. The teacher collects them to calibrate the lesson.</p>
+        <div class="card-accordion">
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">💡 Practical example <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="example-box">Topic: Synthetic Fibers. "Dear Me, I know synthetic fibers are made in a lab and that polyester is cheaper than cotton. I don't understand exactly how chemicals become thread, or why some fibers burn differently from others…"</div></div></div>
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">📌 Teaching tips <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="tip-box"><strong>When to use it:</strong> At the start of every unit. The letters are invaluable for formative assessment — they reveal students' actual prior knowledge.<br><strong>Tip:</strong> Give 1–3 minutes per question. Ask students to share responses to questions 1 and 2 before moving to question 3.</div></div></div>
+        </div>
+      </div>
+      <div class="card-footer-color purple-grad"></div>
+    </div>
+
+    <!-- 8 -->
+    <div class="strategy-card" data-tags="auditory hots social">
+      <div class="card-header"><div class="card-emoji">📖</div><div class="card-header-text"><h3>Dickens Moment</h3><div class="card-modality-tags"><span class="mod-tag mod-auditory">Auditory</span><span class="mod-tag mod-hots">HOTS – Synthesis</span><span class="mod-tag mod-social">Collaborative</span></div></div></div>
+      <div class="card-body">
+        <p class="card-desc">Students transform the components of a unit into characters in a story that interact, solve problems, and have dialogue. Content becomes narrative — memorable and creative.</p>
+        <div class="card-accordion">
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">💡 Practical example <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="example-box">Order of mathematical operations as a story: Parey Theses — always holding things together; Expo Nent — thinks he's above everyone; Multi Plica — organizes everything in groups; Di Vision — causes disruption; Addy Tion — always taking from others…</div></div></div>
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">📌 Teaching tips <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="tip-box"><strong>When to use it:</strong> After completing a unit. This is not a creative writing contest — what matters is using the content imaginatively.<br><strong>Tip:</strong> For agronomy: soil types, nutrients, or plant growth stages as dramatic characters!</div></div></div>
+        </div>
+      </div>
+      <div class="card-footer-color yellow-grad"></div>
+    </div>
+
+    <!-- 9 -->
+    <div class="strategy-card" data-tags="visual hots quick">
+      <div class="card-header"><div class="card-emoji">⚛️</div><div class="card-header-text"><h3>Einstein Moment</h3><div class="card-modality-tags"><span class="mod-tag mod-visual">Visual</span><span class="mod-tag mod-hots">HOTS – Analysis</span></div></div></div>
+      <div class="card-body">
+        <p class="card-desc">Students represent an idea or process using mathematical symbols to show how content elements relate to one another. They create a visual "equation" of the concept.</p>
+        <div class="card-accordion">
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">💡 Practical example <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="example-box">Concept: healthy plant growth<br>Einstein equation: <strong>Healthy Soil + Water + Light = 🌱 → Yield × Nutrients − Stress = Harvest</strong></div></div></div>
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">📌 Teaching tips <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="tip-box"><strong>When to use it:</strong> Great for cause-and-effect relationships, cycles, and processes in agronomy, chemistry, and ecology.<br><strong>Tip:</strong> Ask students to explain their equation to a classmate — the discussion is the real learning moment.</div></div></div>
+        </div>
+      </div>
+      <div class="card-footer-color"></div>
+    </div>
+
+    <!-- 10 -->
+    <div class="strategy-card" data-tags="auditory kinesthetic social quick">
+      <div class="card-header"><div class="card-emoji">📺</div><div class="card-header-text"><h3>Eye Witness News Moment</h3><div class="card-modality-tags"><span class="mod-tag mod-auditory">Auditory</span><span class="mod-tag mod-social">Collaborative</span><span class="mod-tag mod-kinesthetic">Kinesthetic</span></div></div></div>
+      <div class="card-body">
+        <p class="card-desc">In pairs: one student is the news reporter, the other is the expert being interviewed. They simulate a live newscast about the content just learned. Halfway through, roles switch.</p>
+        <div class="card-accordion">
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">💡 Practical example <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="example-box">Reporter: "Welcome to Moments with Carlos. Today we interview world-renowned conservation expert Dr. T. Why are conservation practices so essential in agriculture?"<br>Expert: "They protect soil, water, and natural resources while maintaining farm productivity. Without them, we risk erosion and long-term land degradation."</div></div></div>
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">📌 Teaching tips <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="tip-box"><strong>When to use it:</strong> As a review at end of lesson or unit. Works brilliantly in English for CLIL classes.<br><strong>Tip:</strong> Set a 2-minute timer. The role-switch signal ("Breaking news!") adds pace and energy.</div></div></div>
+        </div>
+      </div>
+      <div class="card-footer-color green-grad"></div>
+    </div>
+
+    <!-- 11 -->
+    <div class="strategy-card" data-tags="kinesthetic auditory social">
+      <div class="card-header"><div class="card-emoji">🕺</div><div class="card-header-text"><h3>Fred Astaire Moment</h3><div class="card-modality-tags"><span class="mod-tag mod-kinesthetic">Kinesthetic</span><span class="mod-tag mod-auditory">Auditory</span><span class="mod-tag mod-social">Collaborative</span></div></div></div>
+      <div class="card-body">
+        <p class="card-desc">Small groups create a sequence of movements or a "dance" representing the information just learned. Each move corresponds to one element of the content — then groups perform and explain the connection.</p>
+        <div class="card-accordion">
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">💡 Practical example <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="example-box">Phases of photosynthesis → "The Photosynthesis Shuffle": arms raised (sunlight), deep breath in (CO₂), crouch and rise (glucose production), wave arms outward (oxygen release).</div></div></div>
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">📌 Teaching tips <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="tip-box"><strong>When to use it:</strong> Best for sequences with multiple stages (biological cycles, production phases, historical events).<br><strong>Tip:</strong> Give groups 5–10 minutes to create. Each group performs and explains the connection between move and meaning.</div></div></div>
+        </div>
+      </div>
+      <div class="card-footer-color red-grad"></div>
+    </div>
+
+    <!-- 12 -->
+    <div class="strategy-card" data-tags="kinesthetic quick">
+      <div class="card-header"><div class="card-emoji">🏃</div><div class="card-header-text"><h3>Go Get It Moment</h3><div class="card-modality-tags"><span class="mod-tag mod-kinesthetic">Kinesthetic</span><span class="mod-tag mod-visual">Visual</span></div></div></div>
+      <div class="card-body">
+        <p class="card-desc">Information cards are hidden around the classroom (under desks, on the ceiling, behind the door). At a signal, students stand up, find their card, and share the information with the class.</p>
+        <div class="card-accordion">
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">💡 Practical example <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="example-box">12 cards each describing a different cover crop species. Hidden around the room. On the signal: students find, read, and bring their card back to share with the group.</div></div></div>
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">📌 Teaching tips <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="tip-box"><strong>When to use it:</strong> When there is a large amount of content and students need movement. One card per student is ideal.<br><strong>Tip:</strong> Add a question on the back of each card — whoever finds the most interesting answer earns a bonus point!</div></div></div>
+        </div>
+      </div>
+      <div class="card-footer-color"></div>
+    </div>
+
+    <!-- 13 -->
+    <div class="strategy-card" data-tags="visual hots">
+      <div class="card-header"><div class="card-emoji">🔄</div><div class="card-header-text"><h3>Go-with-the-Flow Moment</h3><div class="card-modality-tags"><span class="mod-tag mod-visual">Visual</span><span class="mod-tag mod-hots">HOTS – Analysis</span></div></div></div>
+      <div class="card-body">
+        <p class="card-desc">Students represent content as a flowchart or process diagram, highlighting the linear, step-by-step relationships. They then compare their diagram with a partner's and the teacher's version.</p>
+        <div class="card-accordion">
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">💡 Practical example <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="example-box">Water cycle → flowchart: evaporation → condensation → precipitation → surface runoff → infiltration → (back to evaporation). Each arrow labeled with the driving force.</div></div></div>
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">📌 Teaching tips <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="tip-box"><strong>Variation:</strong> Show flowchart symbols BEFORE the lesson — the brain unconsciously seeks those patterns while listening.<br><strong>Tip:</strong> Ideal for biogeochemical cycles, production processes, and lab protocols.</div></div></div>
+        </div>
+      </div>
+      <div class="card-footer-color green-grad"></div>
+    </div>
+
+    <!-- 14 -->
+    <div class="strategy-card" data-tags="visual kinesthetic quick">
+      <div class="card-header"><div class="card-emoji">🎨</div><div class="card-header-text"><h3>Graphic Artist Moment</h3><div class="card-modality-tags"><span class="mod-tag mod-visual">Visual</span><span class="mod-tag mod-kinesthetic">Kinesthetic</span></div></div></div>
+      <div class="card-body">
+        <p class="card-desc">Students visually enhance a word, formula, or phrase so its appearance reflects its meaning — like expressive typography or "sculpting without clay." The shape of the word tells its story.</p>
+        <div class="card-accordion">
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">💡 Practical example <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="example-box">"EROSION": letters drawn crumbling and sliding away. "GROWTH": letters stretching taller upward. "DROUGHT": letters cracked and splintered. "FLOOD": letters waterlogged and heavy.</div></div></div>
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">📌 Teaching tips <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="tip-box"><strong>When to use it:</strong> Great for technical vocabulary — visualizing meaning fixes the word in long-term memory.<br><strong>Tip:</strong> Ask students to create 4–6 words on a sheet divided into boxes. Then run a silent gallery walk.</div></div></div>
+        </div>
+      </div>
+      <div class="card-footer-color purple-grad"></div>
+    </div>
+
+    <!-- 15 -->
+    <div class="strategy-card" data-tags="visual kinesthetic">
+      <div class="card-header"><div class="card-emoji">🏺</div><div class="card-header-text"><h3>Hieroglyphics Moment</h3><div class="card-modality-tags"><span class="mod-tag mod-visual">Visual</span><span class="mod-tag mod-kinesthetic">Kinesthetic</span></div></div></div>
+      <div class="card-body">
+        <p class="card-desc">Students create small pictures or icons to represent information, concepts, or steps in a process. Each "hieroglyphic" must be distinguishable from the others and personally meaningful.</p>
+        <div class="card-accordion">
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">💡 Practical example <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="example-box">Phases of mitosis: paper divided into 6 boxes, each with a small icon representing interphase, prophase, metaphase, anaphase, telophase, and cytokinesis.</div></div></div>
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">📌 Teaching tips <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="tip-box"><strong>Variation:</strong> Show an array of ready-made icons, list the key words, and ask students to match icon to word — and defend their choice!<br><strong>Tip:</strong> Drawing skill doesn't matter — what matters is that the icon makes sense TO THEM.</div></div></div>
+        </div>
+      </div>
+      <div class="card-footer-color yellow-grad"></div>
+    </div>
+
+    <!-- 16 -->
+    <div class="strategy-card" data-tags="kinesthetic quick">
+      <div class="card-header"><div class="card-emoji">⛳</div><div class="card-header-text"><h3>Hole-in-One Moment</h3><div class="card-modality-tags"><span class="mod-tag mod-kinesthetic">Kinesthetic</span><span class="mod-tag mod-visual">Visual</span></div></div></div>
+      <div class="card-body">
+        <p class="card-desc">Combines mental imagery with a few "practice swings" before performing a skill. Students visualize each step, then simulate without materials, then perform the actual skill.</p>
+        <div class="card-accordion">
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">💡 Practical example <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="example-box">Grafting lab: students first visualize the steps in silence (cut, positioning, binding). Then they simulate without materials. Then they perform the actual graft.</div></div></div>
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">📌 Teaching tips <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="tip-box"><strong>When to use it:</strong> Perfect for lab activities, field work, and using technical instruments.<br><strong>Tip:</strong> During the mental visualization phase, guide students aloud through each step — don't leave the silence empty.</div></div></div>
+        </div>
+      </div>
+      <div class="card-footer-color"></div>
+    </div>
+
+    <!-- 17 -->
+    <div class="strategy-card" data-tags="auditory hots social quick">
+      <div class="card-header"><div class="card-emoji">❓</div><div class="card-header-text"><h3>Jeopardy Moment</h3><div class="card-modality-tags"><span class="mod-tag mod-auditory">Auditory</span><span class="mod-tag mod-hots">HOTS</span><span class="mod-tag mod-social">Collaborative</span></div></div></div>
+      <div class="card-body">
+        <p class="card-desc">Jeopardy format: the teacher sets the categories, students write the facts. The host reads a fact card and contestants must supply the question that would elicit that fact.</p>
+        <div class="card-accordion">
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">💡 Practical example <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="example-box">Category "Pesticides." Student's fact: "This type of agrochemical controls harmful insects without affecting pollinators." → Expected response: "What is a selective insecticide?"</div></div></div>
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">📌 Teaching tips <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="tip-box"><strong>When to use it:</strong> Final unit review. Writing the fact cards is already excellent study practice.<br><strong>Tip:</strong> Collect cards by category, remove duplicates, and play! Teams of 4–5 students work well.</div></div></div>
+        </div>
+      </div>
+      <div class="card-footer-color green-grad"></div>
+    </div>
+
+    <!-- 18 -->
+    <div class="strategy-card" data-tags="auditory kinesthetic social">
+      <div class="card-header"><div class="card-emoji">🎵</div><div class="card-header-text"><h3>Karaoke Moment</h3><div class="card-modality-tags"><span class="mod-tag mod-auditory">Auditory</span><span class="mod-tag mod-kinesthetic">Kinesthetic</span><span class="mod-tag mod-social">Collaborative</span></div></div></div>
+      <div class="card-body">
+        <p class="card-desc">Students rewrite the lyrics of a familiar song using the key words of the unit, or create an original song from scratch. Music powerfully aids content memorization.</p>
+        <div class="card-accordion">
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">💡 Practical example <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="example-box">Branches of government to "Row, Row, Row Your Boat":<br><em>"Three, three branches / of government, working as one / Judicial, executive, and legislative / the check and balance is done."</em></div></div></div>
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">📌 Teaching tips <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="tip-box"><strong>Easy tunes:</strong> "Row, Row, Row Your Boat", "Twinkle Twinkle Little Star", "Mary Had a Little Lamb", "Old MacDonald Had a Farm" (especially fun for agri classes!).<br><strong>Tip:</strong> Give groups of 3 about 20–30 minutes. Performers earn a bonus point!</div></div></div>
+        </div>
+      </div>
+      <div class="card-footer-color red-grad"></div>
+    </div>
+
+    <!-- 19 -->
+    <div class="strategy-card" data-tags="social auditory quick">
+      <div class="card-header"><div class="card-emoji">🎓</div><div class="card-header-text"><h3>Little Professor Moment</h3><div class="card-modality-tags"><span class="mod-tag mod-auditory">Auditory</span><span class="mod-tag mod-social">Collaborative</span></div></div></div>
+      <div class="card-body">
+        <p class="card-desc">The teacher presents half the content to half the class. Those students become "Little Professors" and teach their partners. Then roles reverse for the second half of the content.</p>
+        <div class="card-accordion">
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">💡 Practical example <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="example-box">Student as "Dr. Wilson": "Good morning. Today I'll explain why soil pH affects nutrient availability. Acidic soil, with pH below 6, blocks phosphorus absorption because…" (30–60 seconds)</div></div></div>
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">📌 Teaching tips <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="tip-box"><strong>When to use it:</strong> For content divisible into two equal parts. Teaching is the most powerful way to learn.<br><strong>Tip:</strong> Have each student create a "business card" with their name and specialty as Dr./Dr. — adds roleplay and fun.</div></div></div>
+        </div>
+      </div>
+      <div class="card-footer-color purple-grad"></div>
+    </div>
+
+    <!-- 20 -->
+    <div class="strategy-card" data-tags="kinesthetic social quick">
+      <div class="card-header"><div class="card-emoji">🤫</div><div class="card-header-text"><h3>Marcel Marceau Moment</h3><div class="card-modality-tags"><span class="mod-tag mod-kinesthetic">Kinesthetic</span><span class="mod-tag mod-social">Collaborative</span></div></div></div>
+      <div class="card-body">
+        <p class="card-desc">Silence as a learning tool! Students create mime motions for content elements. Classmates guess the concept and explain how the mime helps them understand and remember it.</p>
+        <div class="card-accordion">
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">💡 Practical example <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="example-box">"Transpiration": arms like branches, fingers dripping upward as vapor. "Osmosis": two students passing something through an imaginary barrier, from one side to the other.</div></div></div>
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">📌 Teaching tips <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="tip-box"><strong>When to use it:</strong> Perfect for abstract concepts that are hard to visualize. Total silence adds focus and a touch of theater.<br><strong>Tip:</strong> Try a "mimodrama" for complex processes like digestion or the carbon cycle.</div></div></div>
+        </div>
+      </div>
+      <div class="card-footer-color yellow-grad"></div>
+    </div>
+
+    <!-- 21 -->
+    <div class="strategy-card" data-tags="auditory hots social quick">
+      <div class="card-header"><div class="card-emoji">👤</div><div class="card-header-text"><h3>Me-You-Us Moment</h3><div class="card-modality-tags"><span class="mod-tag mod-auditory">Auditory</span><span class="mod-tag mod-social">Collaborative</span><span class="mod-tag mod-hots">HOTS – Analysis</span></div></div></div>
+      <div class="card-body">
+        <p class="card-desc">One question, three phases: 1) <em>Me</em> — think and write individually. 2) <em>You</em> — share with 1–2 classmates. 3) <em>Us</em> — a pair shares with the whole class. Every voice matters.</p>
+        <div class="card-accordion">
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">💡 Practical example <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="example-box">"What impact does monoculture have on soil biodiversity? Write your answer (Me), compare with a classmate (You), then one pair shares with the class (Us)."</div></div></div>
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">📌 Teaching tips <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="tip-box"><strong>When to use it:</strong> For open questions, controversial topics, and ethical issues (GMOs, pesticides, animal welfare).<br><strong>Tip:</strong> In the "Us" phase, call on 3–5 pairs — even if they repeat similar ideas, collective confirmation reinforces the content.</div></div></div>
+        </div>
+      </div>
+      <div class="card-footer-color"></div>
+    </div>
+
+    <!-- 22 -->
+    <div class="strategy-card" data-tags="kinesthetic social visual">
+      <div class="card-header"><div class="card-emoji">🏛️</div><div class="card-header-text"><h3>Michelangelo Moment</h3><div class="card-modality-tags"><span class="mod-tag mod-kinesthetic">Kinesthetic</span><span class="mod-tag mod-visual">Visual</span><span class="mod-tag mod-social">Collaborative</span></div></div></div>
+      <div class="card-body">
+        <p class="card-desc">Students create a sculpture (with paper, clay, or available materials) that represents the model, process, or event just learned. Followed by a silent gallery walk.</p>
+        <div class="card-accordion">
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">💡 Practical example <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="example-box">Cell structure: with clay they model the nucleus, mitochondria, endoplasmic reticulum. Or with crumpled paper and tape they build a molecular structure representing a chemical bond.</div></div></div>
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">📌 Teaching tips <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="tip-box"><strong>When to use it:</strong> For three-dimensional concepts (soil structure, plant anatomy, molecular models).<br><strong>Tip:</strong> 10–20 minutes of creation + silent gallery walk. Then pairs explain what each other's sculpture represents.</div></div></div>
+        </div>
+      </div>
+      <div class="card-footer-color green-grad"></div>
+    </div>
+
+    <!-- 23 -->
+    <div class="strategy-card" data-tags="auditory kinesthetic social">
+      <div class="card-header"><div class="card-emoji">🦢</div><div class="card-header-text"><h3>Mother Goose Moment</h3><div class="card-modality-tags"><span class="mod-tag mod-auditory">Auditory</span><span class="mod-tag mod-kinesthetic">Kinesthetic</span></div></div></div>
+      <div class="card-body">
+        <p class="card-desc">Students take a familiar nursery rhyme and rewrite its words using the content just learned. Attaching new information to something familiar builds stronger cognitive schemas.</p>
+        <div class="card-accordion">
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">💡 Practical example <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="example-box">Mitosis on "Little Jack Horner":<br><em>"Little Mi Tosis / Has three phases / Each being quite unique / Prophase, or coiling / Metaphase, or unwinding / Anaphase, and now we're complete!"</em></div></div></div>
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">📌 Teaching tips <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="tip-box"><strong>Easy rhymes:</strong> "Twinkle Twinkle", "Baa Baa Black Sheep", "Mary Had a Little Lamb", "Old MacDonald Had a Farm" (great for agri classes!).<br><strong>Tip:</strong> The first time, create one together as a class — then let students do it in pairs.</div></div></div>
+        </div>
+      </div>
+      <div class="card-footer-color red-grad"></div>
+    </div>
+
+    <!-- 24 -->
+    <div class="strategy-card" data-tags="kinesthetic quick">
+      <div class="card-header"><div class="card-emoji">🙋</div><div class="card-header-text"><h3>Motion Moment</h3><div class="card-modality-tags"><span class="mod-tag mod-kinesthetic">Kinesthetic</span><span class="mod-tag mod-auditory">Auditory</span></div></div></div>
+      <div class="card-body">
+        <p class="card-desc">The teacher associates movements with key words while teaching. Students replicate the movements whenever they encounter those terms. Can be combined with the Choral Response Moment.</p>
+        <div class="card-accordion">
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">💡 Practical example <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="example-box">"Peninsula" = fist with index finger pointing outward. "Bay" = hand cupped in a backwards C shape. "Isthmus" = two hands with only fingertips touching.</div></div></div>
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">📌 Teaching tips <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="tip-box"><strong>Powerful variation:</strong> Let students invent their own motions — personal associations are even more effective for retention.<br><strong>Tip:</strong> Combine with the Voice Modulator Moment for a stronger impact on vocabulary retention.</div></div></div>
+        </div>
+      </div>
+      <div class="card-footer-color purple-grad"></div>
+    </div>
+
+    <!-- 25 -->
+    <div class="strategy-card" data-tags="auditory hots quick">
+      <div class="card-header"><div class="card-emoji">🍎</div><div class="card-header-text"><h3>Newton Moment</h3><div class="card-modality-tags"><span class="mod-tag mod-auditory">Auditory</span><span class="mod-tag mod-hots">HOTS – Evaluation</span></div></div></div>
+      <div class="card-body">
+        <p class="card-desc">After learning a concept, students generate "why" questions about the content. Questions no one can answer right away go on the board for future exploration.</p>
+        <div class="card-accordion">
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">💡 Practical example <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="example-box">After a lesson on atomic structures: "Why is the nucleus at the center? Why must there be an equal number of protons and neutrons? Why do electrons orbit instead of falling?"</div></div></div>
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">📌 Teaching tips <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="tip-box"><strong>When to use it:</strong> At the end of a lesson to spark curiosity and identify gaps in understanding.<br><strong>Tip:</strong> "Board questions" become prompts for the next lesson or homework research assignments.</div></div></div>
+        </div>
+      </div>
+      <div class="card-footer-color yellow-grad"></div>
+    </div>
+
+    <!-- 26 -->
+    <div class="strategy-card" data-tags="kinesthetic auditory social hots">
+      <div class="card-header"><div class="card-emoji">🎭</div><div class="card-header-text"><h3>Party Host Moment</h3><div class="card-modality-tags"><span class="mod-tag mod-kinesthetic">Kinesthetic</span><span class="mod-tag mod-social">Collaborative</span><span class="mod-tag mod-hots">HOTS – Application</span></div></div></div>
+      <div class="card-body">
+        <p class="card-desc">Each student "becomes" a fact, concept, or vocabulary word. A host must figure out each "guest's" identity solely through their words and actions — no other clues allowed.</p>
+        <div class="card-accordion">
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">💡 Practical example <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="example-box">Medieval feudal system: each student plays a social class. "I work the land that sustains all of you, yet I depend entirely on your permission to exist…" The host must guess who is who.</div></div></div>
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">📌 Teaching tips <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="tip-box"><strong>Tip:</strong> Send the host out while you explain roles to guests. Give no hints to the host — but let the class give clues if they are stuck.<br><strong>Inspired by:</strong> "Who's Line Is It Anyway?" / "Guess Who?"</div></div></div>
+        </div>
+      </div>
+      <div class="card-footer-color"></div>
+    </div>
+
+    <!-- 27 -->
+    <div class="strategy-card" data-tags="visual kinesthetic social hots">
+      <div class="card-header"><div class="card-emoji">🖼️</div><div class="card-header-text"><h3>Picasso Moment</h3><div class="card-modality-tags"><span class="mod-tag mod-visual">Visual</span><span class="mod-tag mod-kinesthetic">Kinesthetic</span><span class="mod-tag mod-hots">HOTS – Synthesis</span></div></div></div>
+      <div class="card-body">
+        <p class="card-desc">Students "paint" their understanding of an entire unit in one global image. Broader than the Hieroglyphics Moment, it requires a bird's-eye view of the whole topic. Followed by a silent gallery walk.</p>
+        <div class="card-accordion">
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">💡 Practical example <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="example-box">After a unit on sustainable agriculture: "If you were a painter, how would you represent agroecology visually? Is it a landscape, a portrait, a still life, or an action scene?"</div></div></div>
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">📌 Teaching tips <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="tip-box"><strong>When to use it:</strong> End of a unit or module — the Picasso Moment sees the whole picture, not the details.<br><strong>Tip:</strong> After the gallery walk, pairs explain what each other's painting represents.</div></div></div>
+        </div>
+      </div>
+      <div class="card-footer-color green-grad"></div>
+    </div>
+
+    <!-- 28 -->
+    <div class="strategy-card" data-tags="visual hots quick">
+      <div class="card-header"><div class="card-emoji">📝</div><div class="card-header-text"><h3>Show What You Know Moment</h3><div class="card-modality-tags"><span class="mod-tag mod-visual">Visual</span><span class="mod-tag mod-hots">HOTS – Application</span></div></div></div>
+      <div class="card-body">
+        <p class="card-desc">A mini-quiz DURING the lesson (not at the end). Students check their own emerging understanding in real time — not for grading, but to clarify comprehension as it develops.</p>
+        <div class="card-accordion">
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">💡 Practical example <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="example-box">"Pause! Quickly sketch the nitrogen cycle as you understand it right now — you have 3 minutes. Then check against your notes." Students self-correct, no grade given.</div></div></div>
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">📌 Teaching tips <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="tip-box"><strong>When to use it:</strong> Mid-lesson — use the results to decide whether to review or move forward.<br><strong>Tip:</strong> Announce it in advance ("Halfway through I'll ask you to show what you know…") — students pay closer attention knowing they'll need to demonstrate it.</div></div></div>
+        </div>
+      </div>
+      <div class="card-footer-color purple-grad"></div>
+    </div>
+
+    <!-- 29 -->
+    <div class="strategy-card" data-tags="auditory visual">
+      <div class="card-header"><div class="card-emoji">🎶</div><div class="card-header-text"><h3>Sound Track Moment</h3><div class="card-modality-tags"><span class="mod-tag mod-auditory">Auditory</span><span class="mod-tag mod-visual">Visual</span></div></div></div>
+      <div class="card-body">
+        <p class="card-desc">Students choose a piece of music that captures the essence of the unit being studied. The soundtrack plays in class while studying that topic — creating a memorable emotional atmosphere.</p>
+        <div class="card-accordion">
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">💡 Practical example <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="example-box">Westward Expansion unit → "William Tell Overture". Space unit → "2001: A Space Odyssey". Chemical reactions unit → "Mission Impossible" theme.</div></div></div>
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">📌 Teaching tips <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="tip-box"><strong>Variation:</strong> At the end of the unit, each student picks their OWN personal soundtrack and writes a brief explanation — the sharing becomes a rich discussion.<br><strong>Tip:</strong> Can play softly in the background while students work independently.</div></div></div>
+        </div>
+      </div>
+      <div class="card-footer-color yellow-grad"></div>
+    </div>
+
+    <!-- 30 -->
+    <div class="strategy-card" data-tags="auditory kinesthetic quick">
+      <div class="card-header"><div class="card-emoji">🔊</div><div class="card-header-text"><h3>Voice Modulator Moment</h3><div class="card-modality-tags"><span class="mod-tag mod-auditory">Auditory</span><span class="mod-tag mod-kinesthetic">Kinesthetic</span></div></div></div>
+      <div class="card-body">
+        <p class="card-desc">Like the Choral Response, but with a twist: students change their VOICE when repeating. A whisper, a shout, a British accent, Darth Vader voice, elongated, punched… Boosts both fun and retention.</p>
+        <div class="card-accordion">
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">💡 Practical example <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="example-box">"im-PE-ri-al-ISM" said with an aristocratic British General accent every time it appears in the lesson. Or "PHOTOSYNTHESIS" announced like an enthusiastic sports commentator.</div></div></div>
+          <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">📌 Teaching tips <span class="accordion-icon">+</span></button><div class="accordion-content"><div class="tip-box"><strong>Variation:</strong> Elicit responses from one "population" at a time (just the left side, just those wearing glasses) — includes quieter students.<br><strong>Tip:</strong> Use a CONSISTENT modulation for each key word — consistency drives recognition and retention.</div></div></div>
+        </div>
+      </div>
+      <div class="card-footer-color red-grad"></div>
+    </div>
+
+  </div><!-- end strategies-grid -->
+</section>
+
+<!-- FEATURED SPOTLIGHT -->
+<section class="featured-section" id="spotlight">
+  <div class="featured-inner">
+    <p class="section-eyebrow">From the Workshop · March 23, 2026</p>
+    <h2 class="section-title" style="margin-bottom:12px">Spotlight on the featured strategies</h2>
+    <p class="section-body" style="margin-bottom:0">The three strategies presented in depth by Dr. Tyson Sorensen and Dr. Lacee Boschetto at the Botanical Garden of Bergamo Alta, with examples drawn from agricultural education.</p>
+    <div class="featured-grid">
+      <div class="featured-card">
+        <span class="featured-card-badge badge-orange">Pre-lesson · HOTS</span>
+        <h3>Descartes Moment</h3>
+        <p>Three questions before you begin: <em>What do you know?</em> <em>What do you think you understand?</em> <em>What don't you understand?</em> Students write letters to themselves. The teacher collects them and calibrates the lesson to address real knowledge gaps.</p>
+        <div class="featured-example">
+          <strong>Workshop Example — Synthetic Fibers</strong>
+          "Dear Me, I know that synthetic fibers are made by people instead of coming from plants or animals. I think polyester and nylon are synthetic fibers. I don't really understand exactly how synthetic fibers are made from chemicals into thread, nor do I know the difference between polyester, nylon, and acrylic."
+        </div>
+      </div>
+      <div class="featured-card">
+        <span class="featured-card-badge badge-green">Review · Collaborative</span>
+        <h3>Eyewitness News Moment</h3>
+        <p>In pairs: a reporter and an expert simulate a live newscast. The reporter poses questions about the content, the expert answers. Halfway through, roles switch — the new expert picks up exactly where the other left off.</p>
+        <div class="featured-example">
+          <strong>Workshop Example — Soil Conservation</strong>
+          "Welcome to Moments with Carlos. Today we are interviewing the world-renowned conservation expert Dr. T. Dr. T, why are conservation practices so important in agriculture?" — "Conservation practices are essential because they protect soil, water, and natural resources while maintaining farm productivity. Without them, we risk erosion and long-term land degradation."
+        </div>
+      </div>
+      <div class="featured-card">
+        <span class="featured-card-badge badge-yellow">Vocabulary · Game</span>
+        <h3>$10,000 Pyramid Moment</h3>
+        <p>In pairs or small groups: one student gives descriptive clues about a technical term, the other must guess. The clue-giver can never say the word itself. Timed event (1–2 min), then roles rotate.</p>
+        <div class="featured-example">
+          <strong>Workshop Example — Agroforestry</strong>
+          Student A: "It's a farming method that includes trees… it improves soil and protects the environment… it provides shade and prevents erosion…"<br>
+          Student B: "Agroforestry?"<br>
+          Student A: "You got it!"
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESOURCES & DOWNLOADS -->
+<section class="resources-section" id="resources">
+  <div class="resources-inner">
+    <div style="text-align:center">
+      <p class="section-eyebrow">Workshop Materials</p>
+      <h2 class="section-title">Resources &amp; Downloads</h2>
+      <p class="section-body" style="margin-bottom:0">The three documents shared at the Bergamo workshop. Download them or upload your own copy to replace the placeholders.</p>
+    </div>
+    <div class="resources-grid">
+
+      <!-- CARD 1: Presentation slides -->
+      <div class="res-card">
+        <div class="res-card-top">
+          <span class="res-type-badge res-badge-slides">📊 Workshop Slides</span>
+          <h3>Increasing Learner Engagement</h3>
+          <p class="res-authors">Dr. Tyson Sorensen &amp; Dr. Lacee Boschetto · Utah State University · March 23, 2026</p>
+          <p class="res-summary">The core presentation delivered at the Orto Botanico di Bergamo Alta. It introduces the eMoments framework, explains the theoretical background (modalities, multiple intelligences, Bloom's taxonomy), and walks through three strategies in depth with live classroom examples.</p>
+          <ul class="res-highlights">
+            <li>eMoments defined: strategies to help students become <em>engaged, connected</em>, and make <em>personal meaning</em> of content</li>
+            <li>Framework grounded in three learning modalities: Visual, Auditory, Kinesthetic</li>
+            <li>Deep dive into <strong>Descartes Moment</strong> — three pre-lesson questions and student letter-writing</li>
+            <li>Deep dive into <strong>Eyewitness News Moment</strong> — live newscast roleplay in pairs</li>
+            <li>Deep dive into <strong>$10,000 Pyramid Moment</strong> — clue-giving vocabulary game</li>
+            <li>U.S. Agricultural Education 3-Circle Model: Classroom Instruction + Supervised Agricultural Experience + FFA Leadership</li>
+            <li>Closing reflection: <em>"Where in your curriculum could you use these?"</em></li>
+          </ul>
+        </div>
+        <div class="res-card-bottom">
+          <a class="res-download-btn btn-primary" href="eMoment_Presentation-_Italy_2026.pdf" download>⬇ Download Slides</a>
+          <label class="upload-label">📂 Replace file <input type="file" accept=".pdf" onchange="handleUpload(this,'slides-status','slides-link')"></label>
+        </div>
+        <p class="upload-status" id="slides-status"></p>
+      </div>
+
+      <!-- CARD 2: Teaching Strategies guide -->
+      <div class="res-card">
+        <div class="res-card-top">
+          <span class="res-type-badge res-badge-guide">📖 Strategy Guide</span>
+          <h3>eMoments Teaching Strategies — Full Reference</h3>
+          <p class="res-authors">National FFA Organization / LifeKnowledge Center for Agricultural Education</p>
+          <p class="res-summary">The complete printed guide covering all 30 eMoment strategies. Each page describes one strategy with a brief overview, step-by-step process, variations, and a memorable take-away quote. Includes the full cross-reference matrix mapping each strategy to Bloom's levels, multiple intelligences, and learning modalities.</p>
+          <ul class="res-highlights">
+            <li>30 classroom-ready strategies, each with clear step-by-step instructions</li>
+            <li>Strategies range from quick 2-minute activities to richer 20-minute creative tasks</li>
+            <li>Covers all six levels of Bloom's Taxonomy from Knowledge to Evaluation</li>
+            <li>Addresses all eight of Gardner's Multiple Intelligences</li>
+            <li>Final cross-reference matrix: instantly find strategies by modality, intelligence, or HOTS level</li>
+            <li>Field-tested in U.S. agricultural education classrooms and adaptable to any subject</li>
+            <li>Resources flyer with QR code for digital access to all companion materials</li>
+          </ul>
+        </div>
+        <div class="res-card-bottom">
+          <a class="res-download-btn btn-primary" href="eMoments_Teaching_Strategies.pdf" download>⬇ Download Guide</a>
+          <label class="upload-label">📂 Replace file <input type="file" accept=".pdf" onchange="handleUpload(this,'guide-status','guide-link')"></label>
+        </div>
+        <p class="upload-status" id="guide-status"></p>
+      </div>
+
+      <!-- CARD 3: Workshop flyer -->
+      <div class="res-card">
+        <div class="res-card-top">
+          <span class="res-type-badge res-badge-flyer">📌 Workshop Flyer</span>
+          <h3>Teaching Beyond Boundaries — Workshop Programme</h3>
+          <p class="res-authors">ITIS P. Paleocapa · Orto Botanico di Bergamo · Utah State University · March 23, 2026</p>
+          <p class="res-summary">The official flyer and programme for the "Teaching Beyond Boundaries: Sharing Ideas, Inspiring Change" workshop held at the Botanical Garden of Bergamo Alta. Organized jointly by ITIS P. Paleocapa and Utah State University, the event brought together Italian and American educators for a shared afternoon of professional development.</p>
+          <ul class="res-highlights">
+            <li><strong>15:00</strong> — Botanic Gardens as tools for meaningful learning (Mara Sugni, Orto Botanico di Bergamo) · max 25 participants · Orto Botanico Città Alta</li>
+            <li><strong>16:15</strong> — Welcome and introduction: Gabriele Rinaldi (Garden Director) &amp; Annalisa Bonazzi (Paleocapa Headmaster)</li>
+            <li><strong>16:30</strong> — Designing Engaging Learning That Sticks — Prof. Tyson J. Sorensen, Utah State University</li>
+            <li><strong>17:00</strong> — Espericiclo Project: a unique way to engage students — Marta Luzzana &amp; students of ITIS P. Paleocapa</li>
+            <li><strong>17:45</strong> — Open debate, snacks and networking · max 50 participants · Sala Viscontea</li>
+            <li>Partner logos: Orto Botanico Lorenzo Rota · Utah State University · ITIS P. Paleocapa · Assessorato Transizione Ecologica e Verde, Comune di Bergamo</li>
+          </ul>
+        </div>
+        <div class="res-card-bottom">
+          <a class="res-download-btn btn-primary" href="LOCANDINA_UTAH__Teaching_beyond_boundaries.pdf" download>⬇ Download Flyer</a>
+          <label class="upload-label">📂 Replace file <input type="file" accept=".pdf" onchange="handleUpload(this,'flyer-status','flyer-link')"></label>
+        </div>
+        <p class="upload-status" id="flyer-status"></p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logos">
+    <div class="footer-org"><div class="footer-org-icon">🌿</div><div class="footer-org-name">Orto Botanico di Bergamo Lorenzo Rota</div><div class="footer-org-sub">Città Alta, Bergamo</div></div>
+    <div class="footer-divider"></div>
+    <div class="footer-org"><div class="footer-org-icon">🎓</div><div class="footer-org-name">Utah State University</div><div class="footer-org-sub">College of Agriculture &amp; Natural Resources</div></div>
+    <div class="footer-divider"></div>
+    <div class="footer-org"><div class="footer-org-icon">⚙️</div><div class="footer-org-name">ITIS P. Paleocapa</div><div class="footer-org-sub">Bergamo, Italy</div></div>
+    <div class="footer-divider"></div>
+    <div class="footer-org"><div class="footer-org-icon">🌱</div><div class="footer-org-name">IIS Gregorio Mendel</div><div class="footer-org-sub">Villa Cortese (MI), Italy</div></div>
+    <div class="footer-divider"></div>
+    <div class="footer-org"><div class="footer-org-icon">🏛️</div><div class="footer-org-name">Assessorato Transizione Ecologica e Verde</div><div class="footer-org-sub">Comune di Bergamo</div></div>
+  </div>
+  <p class="footer-copy">
+    Workshop <strong style="color:rgba(255,255,255,0.7)">Teaching Beyond Boundaries: Sharing Ideas, Inspiring Change</strong><br>
+    March 23, 2026 · Orto Botanico Città Alta, Bergamo<br>
+    Page created for sharing across the school network
+  </p>
+</footer>
+
+<script>
+let currentFilter = 'all';
+let searchText = '';
+function toggleAccordion(btn) {
+  const content = btn.nextElementSibling;
+  const isOpen = content.classList.contains('open');
+  const card = btn.closest('.strategy-card');
+  card.querySelectorAll('.accordion-content').forEach(c => c.classList.remove('open'));
+  card.querySelectorAll('.accordion-trigger').forEach(b => b.classList.remove('open'));
+  if (!isOpen) { content.classList.add('open'); btn.classList.add('open'); }
+}
+function setFilter(filter, btn) {
+  currentFilter = filter;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilters();
+}
+function filterCards() {
+  searchText = document.getElementById('searchInput').value.toLowerCase();
+  applyFilters();
+}
+function handleUpload(input, statusId) {
+  const file = input.files[0];
+  if (!file) return;
+  const url = URL.createObjectURL(file);
+  const statusEl = document.getElementById(statusId);
+  statusEl.textContent = '✓ File loaded: ' + file.name;
+  statusEl.classList.add('visible');
+  const card = input.closest('.res-card');
+  const downloadBtn = card.querySelector('.btn-primary');
+  if (downloadBtn) {
+    downloadBtn.href = url;
+    downloadBtn.download = file.name;
+  }
+}
+function applyFilters() {
+  document.querySelectorAll('.strategy-card').forEach(card => {
+    const tags = card.dataset.tags || '';
+    const title = card.querySelector('h3').textContent.toLowerCase();
+    const desc = card.querySelector('.card-desc').textContent.toLowerCase();
+    const matchesFilter = currentFilter === 'all' || tags.includes(currentFilter);
+    const matchesSearch = !searchText || title.includes(searchText) || desc.includes(searchText);
+    card.classList.toggle('hidden', !(matchesFilter && matchesSearch));
+  });
+}
+</script>
+</body>
+</html>
